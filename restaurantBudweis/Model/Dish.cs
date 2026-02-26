@@ -6,5 +6,6 @@
         public int Price { get; set; }
         public int CookingTimeMinutes { get; set; }
         public int DishID { get; set; }
+        public string? Dishs { get; set; } 
     }
 }
