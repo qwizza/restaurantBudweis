@@ -1,0 +1,40 @@
+﻿@page
+@model restaurantBudweis.Pages.Clients.IndexModel
+@{
+}
+
+<h1>Список клиентов</h1>
+
+<p>
+    <a asp-page="Create">Добавить клиента</a>
+</p>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>ФИО</th>
+            <th>Телефон</th>
+            <th>Номер столика</th>
+            <th>Блюдо</th>
+            <th>Дата посещения</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clients in Model.Clients)
+        {
+            <tr>
+                <td>@clients.FullName</td>
+                <td>@clients.PhoneNumber</td>
+                <td>@clients.TableNumber</td>
+                <td>@clients.Dishs</td>
+                <td>@clients.VisitDate.ToShortDateString()</td>
+                <td>
+                    <a asp-page="Details" asp-route-id="@clients.Id">Открыть</a>
+                    <a asp-page="Edit" asp-route-id="@clients.Id">Изменить</a>
+                    <a asp-page="Delete" asp-route-id="@clients.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
