@@ -2,31 +2,31 @@
 @model restaurantBudweis.Pages.Clients.CreateModel
 @{
 }
-<h1>Добавить студента</h1>
+<h1>Добавить клиента</h1>
 
 <form method="post">
     <div>
-        <label>Фамилия</label><br />
+        <label>ФИО</label><br />
         <input asp-for="Clients.FullName" />
     </div>
 
     <div>
-        <label>Email</label><br />
+        <label>Телефон</label><br />
         <input asp-for="Clients.PhoneNumber" />
     </div>
 
     <div>
-        <label>Телефон</label><br />
+        <label>Номер столика</label><br />
         <input asp-for="Clients.TableNumber" />
     </div>
 
     <div>
-        <label>Телефон</label><br />
+        <label>Блюдо</label><br />
         <input asp-for="Clients.Dishs" />
     </div>
 
     <div>
-        <label>Дата рождения</label><br />
+        <label>Дата посещения</label><br />
         <input asp-for="Clients.VisitDate" type="date" />
     </div>
 

@@ -1,0 +1,42 @@
+﻿@page
+@model restaurantBudweis.Pages.Dishs.IndexModel
+@{
+}
+
+<h1>Список блюд</h1>
+
+<p>
+    <a asp-page="Create">Добавить новое блюдо</a>
+</p>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Название блюда</th>
+            <th>Группа блюд</th>
+            <th>Цена</th>
+            <th>Время приготовления</th>
+            <th>Описание блюда</th>
+            <th>Ингредиенты</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dish in Model.Dishs)
+        {
+            <tr>
+                <td>@dish.DishName</td>
+                <td>@dish.GroupDish</td>
+                <td>@dish.Price</td>
+                <td>@dish.CookingTimeMinutes</td>
+                <td>@dish.DescriptionDish</td>
+                <td>@dish.Ingredients</td>
+                <td>
+                    <a asp-page="Details" asp-route-id="@dish.Id">Открыть</a>
+                    <a asp-page="Edit" asp-route-id="@dish.Id">Изменить</a>
+                    <a asp-page="Delete" asp-route-id="@dish.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
