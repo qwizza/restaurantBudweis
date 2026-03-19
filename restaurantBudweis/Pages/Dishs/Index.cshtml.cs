@@ -13,7 +13,6 @@ namespace restaurantBudweis.Pages.Dishs
         {
             _context = context;
         }
-
         public List<Dish> Dishs { get; set; }
 
         public void OnGet()

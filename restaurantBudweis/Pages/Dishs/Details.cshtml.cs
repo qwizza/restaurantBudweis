@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
 
@@ -18,7 +19,10 @@ namespace restaurantBudweis.Pages.Dishs
 
         public IActionResult OnGet(int id)
         {
-            Dish = _context.Dishs.FirstOrDefault(b => b.Id == id);
+            Dish = _context.Dishs
+                        .Where(c => c.Id == id)
+                        .Include(b => b.GroupDish)
+                        .FirstOrDefault();
 
             if (Dish == null)
                 return NotFound();
