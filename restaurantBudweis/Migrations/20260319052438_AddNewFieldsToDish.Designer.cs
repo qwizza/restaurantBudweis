@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using restaurantBudweis.Data;
 
@@ -11,9 +12,11 @@ using restaurantBudweis.Data;
 namespace restaurantBudweis.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260319052438_AddNewFieldsToDish")]
+    partial class AddNewFieldsToDish
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,25 +68,22 @@ namespace restaurantBudweis.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DescriptionDish")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DishName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DishName")
+                        .HasColumnType("int");
 
-                    b.Property<int>("GroupDishId")
+                    b.Property<int?>("GroupDishId")
                         .HasColumnType("int");
 
                     b.Property<string>("Ingredients")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -118,9 +118,7 @@ namespace restaurantBudweis.Migrations
 
                     b.HasOne("restaurantBudweis.Model.GroupDish", "GroupDish")
                         .WithMany("Dishs")
-                        .HasForeignKey("GroupDishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GroupDishId");
 
                     b.Navigation("GroupDish");
                 });

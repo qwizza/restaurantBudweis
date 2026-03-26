@@ -1,26 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using restaurantBudweis.Data;
-using restaurantBudweis.Data;
 using restaurantBudweis.Model;
 
-
-namespace restaurantBudweis.Pages
+namespace restaurantBudweis.Pages.Clients
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly ApplicationDbContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
+        public List<Client> Clients { get; set; }
+
         public void OnGet()
         {
-
+            Clients = _context.Clients.ToList();
         }
     }
 }
+

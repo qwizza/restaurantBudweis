@@ -1,0 +1,19 @@
+﻿@page "{id:int}"
+@model restaurantBudweis.Pages.Dishs.DetailsModel
+@{
+}
+
+<h1>Информация о блюде</h1>
+
+<div>
+    <p><strong>Название блюда:</strong> @Model.Dish.DishName</p>
+    <p><strong>Группа блюд:</strong> @Model.Dish.GroupDish.Name</p>
+    <p><strong>Цена:</strong> @Model.Dish.Price</p>
+    <p><strong>Время приготовления:</strong> @Model.Dish.CookingTimeMinutes</p>
+    <p><strong>Описание блюда:</strong> @Model.Dish.DescriptionDish</p>
+    <p><strong>Ингредиенты:</strong> @Model.Dish.Ingredients</p>
+</div>
+
+<p>
+    <a asp-page="Index">Назад к списку</a>
+</p>

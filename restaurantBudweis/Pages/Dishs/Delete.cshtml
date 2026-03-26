@@ -1,0 +1,20 @@
+﻿@page "{id:int}"
+@model restaurantBudweis.Pages.Dishs.DeleteModel
+@{
+}
+
+<h1>Удалить блюдо</h1>
+
+<h3>Вы уверены?</h3>
+
+<div>
+    <p><strong>@Model.Dish.DishName</strong></p>
+    <p>@Model.Dish.GroupDish.Name</p>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Dish.Id" />
+    <button type="submit">Удалить</button>
+</form>
+
+<a asp-page="Index">Отмена</a>

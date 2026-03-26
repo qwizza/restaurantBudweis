@@ -1,0 +1,43 @@
+﻿@page
+@model restaurantBudweis.Pages.Dishs.CreateModel
+@{
+}
+
+<h1>Добавить блюдо</h1>
+
+<form method="post">
+    <div>
+        <label>Название блюда</label><br />
+        <input asp-for="Dish.DishName" />
+        <span asp-validation-for="Dish.DishName"></span>
+    </div>
+
+    <div>
+        <label>Группа блюд</label><br />
+        <input asp-for="Dish.GroupDish.Name" />
+    </div>
+
+    <div>
+        <label>Цена</label><br />
+        <input asp-for="Dish.Price" type="number" />
+    </div>
+
+    <div>
+        <label>Время приготовления(в минутах)</label><br />
+        <input asp-for="Dish.CookingTimeMinutes" type="number" />
+    </div>
+
+    <div>
+        <label>Описание блюда</label><br />
+        <input asp-for="Dish.DescriptionDish" />
+    </div>
+
+    <div>
+        <label>Ингредиенты</label><br />
+        <input asp-for="Dish.Ingredients" />
+    </div>
+
+    <button type="submit">Сохранить</button>
+</form>
+
+<a asp-page="Index">Назад</a>
