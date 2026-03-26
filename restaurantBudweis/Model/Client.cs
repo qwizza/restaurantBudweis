@@ -6,7 +6,7 @@
         public string? PhoneNumber { get; set; } 
         public int TableNumber { get; set; }
         public DateTime VisitDate { get; set; }
-        public List<Dish>? Dishs { get; set; }
+        public List<Dish>? Dishs { get; set; } = new List<Dish>();
         
     }
 }

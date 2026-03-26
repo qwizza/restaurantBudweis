@@ -15,7 +15,6 @@
             <th>ФИО</th>
             <th>Телефон</th>
             <th>Номер столика</th>
-            <th>Блюдо</th>
             <th>Дата посещения</th>
             <th></th>
         </tr>
@@ -26,8 +25,7 @@
             <tr>
                 <td>@clients.FullName</td>
                 <td>@clients.PhoneNumber</td>
-                <td>@clients.TableNumber</td>
-                <td>@clients.Dishs</td>
+                <td>@clients.TableNumber</td>        
                 <td>@clients.VisitDate.ToShortDateString()</td>
                 <td>
                     <a asp-page="Details" asp-route-id="@clients.Id">Открыть</a>

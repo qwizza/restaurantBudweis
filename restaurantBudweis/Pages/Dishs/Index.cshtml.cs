@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace restaurantBudweis.Pages.Dishs
 {
@@ -17,7 +19,10 @@ namespace restaurantBudweis.Pages.Dishs
 
         public void OnGet()
         {
-            Dishs = _context.Dishs.ToList();
+            Dishs = _context.Dishs
+                .Include(b => b.GroupDish)
+                .ToList();
+
         }
     }
 }
