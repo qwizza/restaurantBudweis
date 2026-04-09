@@ -3,15 +3,59 @@
 @{
 }
 
-<h1>Информация о клиенте</h1>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
 
-<div>
-    <p><strong>ФИО:</strong> @Model.Client.FullName</p>
-    <p><strong>Телефон:</strong> @Model.Client.PhoneNumber</p>
-    <p><strong>Номер столика:</strong> @Model.Client.TableNumber</p>
-    <p><strong>Дата посещения:</strong> @Model.Client.VisitDate.ToShortDateString()</p>
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Информация о клиенте</h5>
+            </div>
+
+            <div class="card-body">
+
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">ФИО</dt>
+                    <dd class="col-sm-8">@Model.Client.FullName</dd>
+
+                    <dt class="col-sm-4">Телефон</dt>
+                    <dd class="col-sm-8">
+                        @(string.IsNullOrEmpty(Model.Client.PhoneNumber)
+                                                ? "—"
+                                                : Model.Client.PhoneNumber)
+                    </dd>
+
+                    <dt class="col-sm-4">Номер столика</dt>
+                    <dd class="col-sm-8">@Model.Client.TableNumber</dd>
+
+                    <dt class="col-sm-4">Дата посещения</dt>
+                    <dd class="col-sm-8">
+                        @Model.Client.VisitDate.ToShortDateString()
+                    </dd>
+
+                </dl>
+
+            </div>
+
+            <div class="card-footer d-flex justify-content-between">
+                <a asp-page="Index" class="btn btn-outline-secondary">
+                    Назад
+                </a>
+
+                <div>
+                    <a asp-page="Edit"
+                       asp-route-id="@Model.Client.Id"
+                       class="btn btn-warning me-2">
+                        Редактировать
+                    </a>
+
+                    <a asp-page="Delete"
+                       asp-route-id="@Model.Client.Id"
+                       class="btn btn-danger">
+                        Удалить
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
-
-<p>
-    <a asp-page="Index">Назад к списку</a>
-</p>

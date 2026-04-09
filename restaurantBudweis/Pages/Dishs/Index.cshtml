@@ -1,42 +1,69 @@
 ﻿@page
 @model restaurantBudweis.Pages.Dishs.IndexModel
 @{
+    ViewData["Title"] = "Список блюд";
 }
 
-<h1>Список блюд</h1>
+<div class="container mt-4">
 
-<p>
-    <a asp-page="Create">Добавить новое блюдо</a>
-</p>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Список блюд</h2>
+        <a asp-page="Create" class="btn btn-success">
+            Добавить новое блюдо
+        </a>
+    </div>
 
-<table border="1" cellpadding="5">
-    <thead>
-        <tr>
-            <th>Название блюда</th>
-            <th>Группа блюд</th>
-            <th>Цена</th>
-            <th>Время приготовления</th>
-            <th>Описание блюда</th>
-            <th>Ингредиенты</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var dish in Model.Dishs)
+    <div class="row g-4">
+        @foreach (var dush in Model.Dishs)
         {
-            <tr>
-                <td>@dish.DishName</td>
-                <td>@dish.GroupDish.Name</td>
-                <td>@dish.Price</td>
-                <td>@dish.CookingTimeMinutes</td>
-                <td>@dish.DescriptionDish</td>
-                <td>@dish.Ingredients</td>
-                <td>
-                    <a asp-page="Details" asp-route-id="@dish.Id">Открыть</a>
-                    <a asp-page="Edit" asp-route-id="@dish.Id">Изменить</a>
-                    <a asp-page="Delete" asp-route-id="@dish.Id">Удалить</a>
-                </td>
-            </tr>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title text-truncate">
+                            @dush.DishName
+                        </h5>
+
+                        <p class="card-text text-muted mb-1">
+                            Группа блюд: @dush.GroupDish.Name
+                        </p>
+
+                        <p class="card-text mb-1">
+                            Цена: <span class="badge bg-secondary">@dush.Price</span>
+                        </p>
+
+                        <p class="card-text mb-2">
+                            Время приготовления: <span class="badge bg-info">@dush.CookingTimeMinutes</span>
+                        </p>
+
+                        <p class="card-text mb-1">
+                            Описание блюда: <span class="badge bg-secondary">@dush.DescriptionDish</span>
+                        </p>
+
+                        <p class="card-text mb-1">
+                            Ингредиенты: <span class="badge bg-secondary">@dush.Ingredients</span>
+                        </p>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Details" asp-route-id="@dush.Id" class="btn btn-sm btn-info">
+                                Открыть
+                            </a>
+                            <a asp-page="Edit" asp-route-id="@dush.Id" class="btn btn-sm btn-warning">
+                                Изменить
+                            </a>
+                            <a asp-page="Delete" asp-route-id="@dush.Id" class="btn btn-sm btn-danger">
+                                Удалить
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+
+</div>

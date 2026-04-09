@@ -11,12 +11,11 @@ namespace restaurantBudweis.Pages.Dishs
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly IHubContext<DishHub> _hubContext;
 
-        public EditModel(ApplicationDbContext context, IHubContext<DishHub> hubContext)
+
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
-            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -42,8 +41,6 @@ namespace restaurantBudweis.Pages.Dishs
 
             _context.Dishs.Update(Dish);
             _context.SaveChanges();
-
-            _hubContext.Clients.All.SendAsync("BookUpdated", Dish);
 
             return RedirectToPage("Index");
         }
