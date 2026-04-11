@@ -30,8 +30,8 @@ body {
   text-align: start;
 }
 
-
-[data-bs-theme="dark"] .nav-link {
-    color: white !important;
+.navbar-brand {
+    color: black !important;
 }
+
 

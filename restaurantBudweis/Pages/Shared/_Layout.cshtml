@@ -64,30 +64,18 @@
 </body>
 </html>
 <script>
-    function toggleTheme() {
-          const html = document.documentElement;
-        const currentTheme = html.getAttribute("data-bs-theme");
-        const newTheme = currentTheme === "dark" ? "light" : "dark";
-
-        html.setAttribute("data-bs-theme", newTheme);
-        localStorage.setItem("theme", newTheme);
-
-        const navbar = document.querySelector('.navbar');
-        if (newTheme === 'dark') {
-            navbar.classList.add('navbar-dark', 'bg-dark');
-            navbar.classList.remove('navbar-light', 'bg-white');
-        } else {
-            navbar.classList.add('navbar-light', 'bg-white');
-            navbar.classList.remove('navbar-dark', 'bg-dark');
-        }
-    }
-
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-        document.documentElement.setAttribute("data-bs-theme", savedTheme);
-    } else {
- 
+        const html = document.documentElement;
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.setAttribute("data-bs-theme", prefersDark ? "dark" : "light");
-    }
+        html.setAttribute("data-bs-theme", prefersDark ? "dark" : "light");
+
+        // отслеживание изменения темы в системе
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+            html.setAttribute("data-bs-theme", e.matches ? "dark" : "light");
+        });
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute("data-bs-theme");
+            html.setAttribute("data-bs-theme", currentTheme === "dark" ? "light" : "dark");
+        }
 </script>
