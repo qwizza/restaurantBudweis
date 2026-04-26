@@ -26,3 +26,5 @@ app.MapRazorPages()
    .WithStaticAssets();
   
 app.Run();
+
+System.Diagnostics.Process.Start("http://localhost:5000");

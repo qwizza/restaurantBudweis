@@ -27,7 +27,7 @@
                         </h5>
 
                         <p class="card-text text-muted mb-1">
-                            Группа блюд: @dush.GroupDish.Name
+                            Группа блюд: @dush.GroupId
                         </p>
 
                         <p class="card-text mb-1">
@@ -66,4 +66,11 @@
         }
     </div>
 
+</div>
+@if (!Model.Dishs.Any())
+{
+    <div class="alert alert-info text-center">
+        Список блюд пуст. Добавьте первое блюдо!
+    </div>
+}
 </div>

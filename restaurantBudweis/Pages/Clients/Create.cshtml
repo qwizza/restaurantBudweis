@@ -1,6 +1,7 @@
 ﻿@page
 @model restaurantBudweis.Pages.Clients.CreateModel
 @{
+    ViewData["Title"] = "Добавить клиента";
 }
 <h1 class="mb-4">Добавить клиента</h1>
 
@@ -10,44 +11,40 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="mb-3">
-                        <label asp-for="Clients.FullName" class="form-label">ФИО</label>
-                        <input asp-for="Clients.FullName" class="form-control" />
-                        <span asp-validation-for="Clients.FullName" class="text-danger"></span>
+                        <label asp-for="Client.FullName" class="form-label">ФИО</label>
+                        <input asp-for="Client.FullName" class="form-control" />
+                        <span asp-validation-for="Client.FullName" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Clients.PhoneNumber" class="form-label">Телефон</label>
-                        <input asp-for="Clients.PhoneNumber" class="form-control" />
-                        <span asp-validation-for="Clients.PhoneNumber" class="text-danger"></span>
+                        <label asp-for="Client.PhoneNumber" class="form-label">Телефон</label>
+                        <input asp-for="Client.PhoneNumber" class="form-control" />
+                        <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Clients.TableNumber" class="form-label">Номер столика</label>
-                        <input asp-for="Clients.TableNumber" class="form-control" />
-                        <span asp-validation-for="Clients.TableNumber" class="text-danger"></span>
+                        <label asp-for="Client.TableNumber" class="form-label">Номер столика</label>
+                        <input asp-for="Client.TableNumber" class="form-control" />
+                        <span asp-validation-for="Client.TableNumber" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Clients.VisitDate" class="form-label">Дата посещения</label>
-                        <input asp-for="Clients.VisitDate" type="date" class="form-control" />
-                        <span asp-validation-for="Clients.VisitDate" class="text-danger"></span>
+                        <label asp-for="Client.VisitDate" class="form-label">Дата посещения</label>
+                        <input asp-for="Client.VisitDate" type="date" class="form-control" />
+                        <span asp-validation-for="Client.VisitDate" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Clients.Dishs" class="form-label">Блюдо</label>
-                        <input asp-for="Clients.Dishs" class="form-control" />
-                        <span asp-validation-for="Clients.Dishs" class="text-danger"></span>
+                        <label class="form-label">Заказанные блюда</label>
+                        <select name="SelectedDishIds" class="form-control" multiple size="5" asp-items="Model.AvailableDishes">
+                            <option value="">-- Выберите блюда (можно несколько) --</option>
+                        </select>
+                        <small class="form-text text-muted">Зажмите Ctrl для выбора нескольких блюд</small>
                     </div>
-
 
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary">
-                            Сохранить
-                        </button>
-
-                        <a asp-page="Index" class="btn btn-secondary">
-                            Назад
-                        </a>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <a asp-page="Index" class="btn btn-secondary">Назад</a>
                     </div>
                 </div>
             </div>

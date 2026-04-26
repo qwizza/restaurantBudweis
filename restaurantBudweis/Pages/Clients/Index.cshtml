@@ -82,3 +82,10 @@
 
     </div>
 </div>
+@if (!Model.Clients.Any())
+{
+    <div class="alert alert-info text-center">
+        Список клиентов пуст. Добавьте первого клиента!
+    </div>
+}
+</div>
