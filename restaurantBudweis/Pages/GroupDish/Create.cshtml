@@ -4,33 +4,31 @@
     ViewData["Title"] = "Добавить группу блюд";
 }
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Добавить группу блюд</h4>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        <div class="mb-3">
-                            <label asp-for="GroupDish.Name" class="form-label">Название группы</label>
-                            <input asp-for="GroupDish.Name" class="form-control" />
-                            <span asp-validation-for="GroupDish.Name" class="text-danger"></span>
-                        </div>
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-primary text-white rounded-top-4">
+                <h5 class="mb-0 text-center">Добавить группу блюд</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label asp-for="GroupDish.Name" class="form-label">Название группы</label>
+                        <input asp-for="GroupDish.Name" class="form-control rounded-3" />
+                        <span asp-validation-for="GroupDish.Name" class="text-danger"></span>
+                    </div>
 
-                        <div class="mb-3">
-                            <label asp-for="GroupDish.Dishs" class="form-label">Описание</label>
-                            <textarea asp-for="GroupDish.Dishs" class="form-control" rows="4"></textarea>
-                            <span asp-validation-for="GroupDish.Dishs" class="text-danger"></span>
-                        </div>
+                    <div class="mb-3">
+                        <label asp-for="GroupDish.Dishs" class="form-label">Описание</label>
+                        <textarea asp-for="GroupDish.Dishs" class="form-control rounded-3" rows="4"></textarea>
+                        <span asp-validation-for="GroupDish.Dishs" class="text-danger"></span>
+                    </div>
 
-                        <div class="d-flex justify-content-between">
-                            <a asp-page="Index" class="btn btn-secondary">Назад</a>
-                            <button type="submit" class="btn btn-success">Сохранить</button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="d-flex justify-content-between gap-2 mt-4">
+                        <a asp-page="Index" class="btn btn-outline-secondary rounded-pill px-4">Назад</a>
+                        <button type="submit" class="btn btn-success rounded-pill px-4">Сохранить</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

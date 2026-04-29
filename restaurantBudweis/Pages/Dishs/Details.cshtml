@@ -4,79 +4,40 @@
     ViewData["Title"] = "Информация о блюде";
 }
 
-<div class="container mt-4">
-
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-
-            <div class="card shadow-sm">
-
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Информация о блюде</h4>
-                </div>
-
-                <div class="card-body">
-
-                    <h5 class="card-title mb-3">
-                        @Model.Dish.DishName
-                    </h5>
-
-                    <ul class="list-group list-group-flush mb-3">
-
-                        <li class="list-group-item">
-                            <strong>Группа блюд:</strong>
-                            <span class="text-muted">@Model.Dish.GroupId</span>
-                        </li>
-
-                        <li class="list-group-item">
-                            <strong>Цена:</strong>
-                            <span class="badge bg-secondary">
-                                @Model.Dish.Price
-                            </span>
-                        </li>
-
-                        <li class="list-group-item">
-                            <strong>Время приготовления:</strong>
-                            <span class="badge bg-info">
-                                @Model.Dish.CookingTimeMinutes
-                            </span>
-                        </li>
-
-                        <li class="list-group-item">
-                            <strong>Описание блюда:</strong>
-                            <span class="badge bg-info">
-                                @Model.Dish.DescriptionDish
-                            </span>
-                        </li>
-
-                        <li class="list-group-item">
-                            <strong>Ингредиенты:</strong>
-                            <span class="badge bg-info">
-                                @Model.Dish.Ingredients
-                            </span>
-                        </li>
-
-                    </ul>
-
-                    <div class="d-flex justify-content-between">
-
-                        <a asp-page="Index" class="btn btn-secondary">
-                            Назад
-                        </a>
-
-                        <a asp-page="Edit"
-                           asp-route-id="@Model.Dish.Id"
-                           class="btn btn-warning">
-                            Редактировать
-                        </a>
-
-                    </div>
-
-                </div>
-
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-primary text-white rounded-top-4">
+                <h5 class="mb-0 text-center">Информация о блюде</h5>
             </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Название</dt>
+                    <dd class="col-sm-8">@Model.Dish.DishName</dd>
 
+                    <dt class="col-sm-4">Группа блюд</dt>
+                    <dd class="col-sm-8">@(Model.Dish.Group?.Dishs ?? "—")</dd>
+
+                    <dt class="col-sm-4">Цена</dt>
+                    <dd class="col-sm-8">@Model.Dish.Price ₽</dd>
+
+                    <dt class="col-sm-4">Время приготовления</dt>
+                    <dd class="col-sm-8">@Model.Dish.CookingTimeMinutes мин.</dd>
+
+                    <dt class="col-sm-4">Описание</dt>
+                    <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Dish.DescriptionDish) ? "—" : Model.Dish.DescriptionDish)</dd>
+
+                    <dt class="col-sm-4">Ингредиенты</dt>
+                    <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Dish.Ingredients) ? "—" : Model.Dish.Ingredients)</dd>
+                </dl>
+            </div>
+            <div class="card-footer d-flex justify-content-between rounded-bottom-4 bg-body-secondary">
+                <a asp-page="Index" class="btn btn-outline-secondary rounded-pill px-4">Назад</a>
+                <div class="d-flex gap-2">
+                    <a asp-page="Edit" asp-route-id="@Model.Dish.Id" class="btn btn-warning rounded-pill px-4">Редактировать</a>
+                    <a asp-page="Delete" asp-route-id="@Model.Dish.Id" class="btn btn-danger rounded-pill px-4">Удалить</a>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>

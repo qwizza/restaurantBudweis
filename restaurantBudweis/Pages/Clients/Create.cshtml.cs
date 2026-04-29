@@ -35,11 +35,15 @@ namespace restaurantBudweis.Pages.Clients
                     Text = d.DishName
                 })
                 .ToList();
+
         }
 
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
+            var count = SelectedDishIds?.Count ?? 0;
+            TempData["Debug"] = $"Выбрано блюд: {count}";
+            if (SelectedDishIds == null || !SelectedDishIds.Any())
+            
             {
                 AvailableDishes = _context.Dishs
                     .Select(d => new SelectListItem

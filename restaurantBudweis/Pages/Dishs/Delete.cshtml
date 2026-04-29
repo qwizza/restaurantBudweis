@@ -1,75 +1,43 @@
 ﻿@page "{id:int}"
-@model restaurantBudweis.Pages.Dishs.DeleteModel
+@model restaurantBudweis.Pages.Dishs.DetailsModel
 @{
-    ViewData["Title"] = "Удалить блюдо";
+    ViewData["Title"] = "Информация о блюде";
 }
 
-<div class="container mt-4">
-
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-
-            <div class="card border-danger shadow-sm">
-
-                <div class="card-header bg-danger text-white">
-                    <h4 class="mb-0">Удалить блюдо</h4>
-                </div>
-
-                <div class="card-body">
-
-                    <div class="alert alert-warning">
-                        Вы уверены, что хотите удалить это блюдо?
-                    </div>
-
-                    <div class="mb-3">
-
-                        <h5 class="card-title">@Model.Dish.DishName</h5>
-
-                        <p class="card-text text-muted">
-                            Группа блюд: @Model.Dish.GroupId
-                        </p>
-
-                        <p class="card-text">
-                            Цена: <span class="badge bg-info">@Model.Dish.Price</span>
-                        </p>
-
-                        <p class="card-text">
-                            Описание блюда: <span class="badge bg-info">@Model.Dish.Ingredients</span>
-                        </p>
-
-                        <p class="card-text">
-                            Ингредиенты: <span class="badge bg-info">@Model.Dish.Ingredients</span>
-                        </p>
-
-                        <p class="card-text">
-                            Время приготовления: <span class="badge bg-secondary">@Model.Dish.CookingTimeMinutes</span>
-                        </p>
-
-                    </div>
-
-                    <form method="post">
-
-                        <input type="hidden" asp-for="Dish.Id" />
-
-                        <div class="d-flex justify-content-between">
-
-                            <a asp-page="Index" class="btn btn-secondary">
-                                Отмена
-                            </a>
-
-                            <button type="submit" class="btn btn-danger">
-                                Удалить
-                            </button>
-
-                        </div>
-
-                    </form>
-
-                </div>
-
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-primary text-white rounded-top-4">
+                <h5 class="mb-0 text-center">Информация о блюде</h5>
             </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Название</dt>
+                    <dd class="col-sm-8">@Model.Dish.DishName</dd>
 
+                    <dt class="col-sm-4">Группа блюд</dt>
+                    <dd class="col-sm-8">@(Model.Dish.Group?.Dishs ?? "—")</dd>
+
+                    <dt class="col-sm-4">Цена</dt>
+                    <dd class="col-sm-8">@Model.Dish.Price ₽</dd>
+
+                    <dt class="col-sm-4">Время приготовления</dt>
+                    <dd class="col-sm-8">@Model.Dish.CookingTimeMinutes мин.</dd>
+
+                    <dt class="col-sm-4">Описание</dt>
+                    <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Dish.DescriptionDish) ? "—" : Model.Dish.DescriptionDish)</dd>
+
+                    <dt class="col-sm-4">Ингредиенты</dt>
+                    <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Dish.Ingredients) ? "—" : Model.Dish.Ingredients)</dd>
+                </dl>
+            </div>
+            <div class="card-footer d-flex justify-content-between rounded-bottom-4 bg-body-secondary">
+                <a asp-page="Index" class="btn btn-outline-secondary rounded-pill px-4">Назад</a>
+                <div class="d-flex gap-2">
+                    <a asp-page="Edit" asp-route-id="@Model.Dish.Id" class="btn btn-warning rounded-pill px-4">Редактировать</a>
+                    <a asp-page="Delete" asp-route-id="@Model.Dish.Id" class="btn btn-danger rounded-pill px-4">Удалить</a>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>

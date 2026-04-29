@@ -17,11 +17,11 @@ namespace restaurantBudweis.Pages.Dishs
         }
         public List<Dish> Dishs { get; set; }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            Dishs = _context.Dishs
-                .Include(b => b.Group)
-                .ToList();
+            Dishs = await _context.Dishs
+                .Include(d => d.Group) !
+                .ToListAsync();
 
         }
     }

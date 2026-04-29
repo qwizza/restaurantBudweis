@@ -24,7 +24,7 @@ namespace restaurantBudweis.Pages.Dishs
         public void OnGet()
         {
             var groups = _context.DishsGroupDishs.ToList();
-            GroupDishList = new SelectList(groups, "Id", "Dishs");
+            GroupDishList = new SelectList(groups, "Id", "Name");
         }
 
         public IActionResult OnPost()
@@ -32,7 +32,7 @@ namespace restaurantBudweis.Pages.Dishs
             if (!ModelState.IsValid)
             {
                 var groups = _context.DishsGroupDishs.ToList();
-                GroupDishList = new SelectList(groups, "Id", "Dishs");
+                GroupDishList = new SelectList(groups, "Id", "Name");
                 return Page();
             }
 
