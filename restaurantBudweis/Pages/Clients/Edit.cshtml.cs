@@ -37,7 +37,6 @@ namespace restaurantBudweis.Pages.Clients
 
             SelectedDishIds = Client.Dishs?.Select(d => d.Id).ToList() ?? new List<int>();
 
-            // Загружаем все блюда для списка
             AvailableDishes = _context.Dishs
                 .Select(d => new SelectListItem
                 {
@@ -64,20 +63,17 @@ namespace restaurantBudweis.Pages.Clients
                 return Page();
             }
 
-            // Загружаем существующего клиента с его блюдами
             var existingClient = _context.Clients
                 .Include(c => c.Dishs)
                 .FirstOrDefault(c => c.Id == Client.Id);
 
             if (existingClient != null)
             {
-                // Обновляем поля
                 existingClient.FullName = Client.FullName;
                 existingClient.PhoneNumber = Client.PhoneNumber;
                 existingClient.TableNumber = Client.TableNumber;
                 existingClient.VisitDate = Client.VisitDate;
 
-                // Обновляем список блюд
                 if (SelectedDishIds != null && SelectedDishIds.Any())
                 {
                     existingClient.Dishs = _context.Dishs
