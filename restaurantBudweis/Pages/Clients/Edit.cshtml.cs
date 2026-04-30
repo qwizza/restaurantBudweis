@@ -35,7 +35,6 @@ namespace restaurantBudweis.Pages.Clients
             if (Client == null)
                 return NotFound();
 
-            // Загружаем выбранные блюда
             SelectedDishIds = Client.Dishs?.Select(d => d.Id).ToList() ?? new List<int>();
 
             // Загружаем все блюда для списка
