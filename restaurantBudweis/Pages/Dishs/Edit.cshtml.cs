@@ -1,17 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using restaurantBudweis.Data;
-using restaurantBudweis.Hubs;
 using restaurantBudweis.Model;
 
-namespace restaurantBudweis.Pages.Dishs
+namespace restaurantBudweis.Pages.Clients
 {
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
 
         public EditModel(ApplicationDbContext context)
         {
@@ -19,27 +15,24 @@ namespace restaurantBudweis.Pages.Dishs
         }
 
         [BindProperty]
-        public Dish Dish { get; set; }
+        public Client Client { get; set; }
 
         public IActionResult OnGet(int id)
         {
-            Dish = _context.Dishs
-                        .Where(c => c.Id == id)
-                        .Include(b => b.GroupDish)
-                        .FirstOrDefault();
+            Client = _context.Clients.Find(id);
 
-            if (Dish == null)
+            if (Client == null)
                 return NotFound();
 
             return Page();
         }
-            
+
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            _context.Dishs.Update(Dish);
+            _context.Clients.Update(Client);
             _context.SaveChanges();
 
             return RedirectToPage("Index");
