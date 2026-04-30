@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace restaurantBudweis.Pages.Dishs
+namespace restaurantBudweis.Pages.Clients
 {
     public class EditModel : PageModel
     {
@@ -18,21 +19,32 @@ namespace restaurantBudweis.Pages.Dishs
         }
 
         [BindProperty]
-        public Dish Dish { get; set; } = new();
+        public Client Client { get; set; } = new();
 
-        public SelectList GroupDishList { get; set; }
+        public List<SelectListItem> AvailableDishes { get; set; } = new();
+
+        [BindProperty]
+        public List<int> SelectedDishIds { get; set; } = new();
 
         public IActionResult OnGet(int id)
         {
-            Dish = _context.Dishs
-                .Include(d => d.Group)
-                .FirstOrDefault(d => d.Id == id);
+            Client = _context.Clients
+                .Include(c => c.Dishs)
+                .FirstOrDefault(c => c.Id == id);
 
-            if (Dish == null)
+            if (Client == null)
                 return NotFound();
 
-            var groups = _context.DishsGroupDishs.ToList();
-            GroupDishList = new SelectList(groups, "Id", "Name", Dish.GroupId);
+            SelectedDishIds = Client.Dishs?.Select(d => d.Id).ToList() ?? new List<int>();
+
+            AvailableDishes = _context.Dishs
+                .Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.DishName,
+                    Selected = SelectedDishIds.Contains(d.Id)
+                })
+                .ToList();
 
             return Page();
         }
@@ -41,13 +53,40 @@ namespace restaurantBudweis.Pages.Dishs
         {
             if (!ModelState.IsValid)
             {
-                var groups = _context.DishsGroupDishs.ToList();
-                GroupDishList = new SelectList(groups, "Id", "Name", Dish.GroupId);
+                AvailableDishes = _context.Dishs
+                    .Select(d => new SelectListItem
+                    {
+                        Value = d.Id.ToString(),
+                        Text = d.DishName
+                    })
+                    .ToList();
                 return Page();
             }
 
-            _context.Dishs.Update(Dish);
-            _context.SaveChanges();
+            var existingClient = _context.Clients
+                .Include(c => c.Dishs)
+                .FirstOrDefault(c => c.Id == Client.Id);
+
+            if (existingClient != null)
+            {
+                existingClient.FullName = Client.FullName;
+                existingClient.PhoneNumber = Client.PhoneNumber;
+                existingClient.TableNumber = Client.TableNumber;
+                existingClient.VisitDate = Client.VisitDate;
+
+                if (SelectedDishIds != null && SelectedDishIds.Any())
+                {
+                    existingClient.Dishs = _context.Dishs
+                        .Where(d => SelectedDishIds.Contains(d.Id))
+                        .ToList();
+                }
+                else
+                {
+                    existingClient.Dishs = new List<Dish>();
+                }
+
+                _context.SaveChanges();
+            }
 
             return RedirectToPage("Index");
         }
