@@ -5,7 +5,7 @@ using restaurantBudweis.Model;
 
 namespace restaurantBudweis.Pages.Clients
 {
-    public class EditModel : PageModel
+    public class EditDishModel  : PageModel
     {
         private readonly ApplicationDbContext _context;
 
