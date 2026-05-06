@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using restaurantBudweis.Model;
-using FluentAssertions;
-
 
 namespace restorauntBudweis.Test
 {
@@ -10,7 +8,6 @@ namespace restorauntBudweis.Test
         [Fact]
         public void Dish_WithValidData_ShouldBeValid()
         {
-            // Создаем объект блюда с валидными значениями
             var dish = new Dish
             {
                 DishName = "Борщ",
@@ -22,26 +19,21 @@ namespace restorauntBudweis.Test
             };
 
             var context = new ValidationContext(dish);
-
             var result = new List<ValidationResult>();
-
             var isValid = Validator.TryValidateObject(dish, context, result, true);
 
             Assert.True(isValid);
-
-            // Также убеждаемся, что список ошибок пуст
             Assert.Empty(result);
         }
 
         [Fact]
         public void Dish_WithEmptyDishName_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
-                DishName = "", // Пустое название
+                DishName = "",
                 Price = 350.50m,
-                DescriptionDish = "Описание блюда",
+                DescriptionDish = "Описание",
                 Ingredients = "Ингредиенты",
                 CookingTimeMinutes = 30,
                 GroupId = 1
@@ -49,24 +41,20 @@ namespace restorauntBudweis.Test
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Введите название блюда"));
+            Assert.Contains(results, r => r.ErrorMessage == "Введите название блюда");
         }
 
         [Fact]
         public void Dish_WithTooLongDishName_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
-                DishName = new string('A', 51), // 51 символ - превышает лимит в 50
+                DishName = new string('A', 51),
                 Price = 350.50m,
-                DescriptionDish = "Описание блюда",
+                DescriptionDish = "Описание",
                 Ingredients = "Ингредиенты",
                 CookingTimeMinutes = 30,
                 GroupId = 1
@@ -74,24 +62,20 @@ namespace restorauntBudweis.Test
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Название блюда не может превышать 50 символов"));
+            Assert.Contains(results, r => r.ErrorMessage == "Название блюда не может превышать 50 символов");
         }
 
         [Fact]
         public void Dish_WithNegativePrice_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
-                Price = -10m, // Отрицательная цена
-                DescriptionDish = "Описание блюда",
+                Price = -10m,
+                DescriptionDish = "Описание",
                 Ingredients = "Ингредиенты",
                 CookingTimeMinutes = 30,
                 GroupId = 1
@@ -99,24 +83,20 @@ namespace restorauntBudweis.Test
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Цена должна быть"));
+            Assert.Contains(results, r => r.ErrorMessage == "Цена должна быть между 0.01 и 99999.99");
         }
 
         [Fact]
         public void Dish_WithZeroPrice_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
-                Price = 0m, // Нулевая цена
-                DescriptionDish = "Описание блюда",
+                Price = 0m,
+                DescriptionDish = "Описание",
                 Ingredients = "Ингредиенты",
                 CookingTimeMinutes = 30,
                 GroupId = 1
@@ -124,24 +104,20 @@ namespace restorauntBudweis.Test
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Цена должна быть между"));
+            Assert.Contains(results, r => r.ErrorMessage == "Цена должна быть между 0.01 и 99999.99");
         }
 
         [Fact]
         public void Dish_WithTooLargePrice_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
-                Price = 100000m, // Слишком большая цена
-                DescriptionDish = "Описание блюда",
+                Price = 100000m,
+                DescriptionDish = "Описание",
                 Ingredients = "Ингредиенты",
                 CookingTimeMinutes = 30,
                 GroupId = 1
@@ -149,24 +125,20 @@ namespace restorauntBudweis.Test
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Цена должна быть между"));
+            Assert.Contains(results, r => r.ErrorMessage == "Цена должна быть между 0.01 и 99999.99");
         }
 
         [Fact]
         public void Dish_WithEmptyDescription_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
                 Price = 350.50m,
-                DescriptionDish = "", // Пустое описание
+                DescriptionDish = "",
                 Ingredients = "Ингредиенты",
                 CookingTimeMinutes = 30,
                 GroupId = 1
@@ -174,24 +146,20 @@ namespace restorauntBudweis.Test
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Введите описание блюда"));
+            Assert.Contains(results, r => r.ErrorMessage == "Введите описание блюда");
         }
 
         [Fact]
         public void Dish_WithTooLongDescription_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
                 Price = 350.50m,
-                DescriptionDish = new string('A', 501), // 501 символ - превышает лимит в 500
+                DescriptionDish = new string('A', 501),
                 Ingredients = "Ингредиенты",
                 CookingTimeMinutes = 30,
                 GroupId = 1
@@ -199,144 +167,119 @@ namespace restorauntBudweis.Test
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Описание не может превышать 500 символов"));
+            Assert.Contains(results, r => r.ErrorMessage == "Описание не может превышать 500 символов");
         }
 
         [Fact]
         public void Dish_WithEmptyIngredients_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
                 Price = 350.50m,
-                DescriptionDish = "Описание блюда",
-                Ingredients = "", // Пустые ингредиенты
+                DescriptionDish = "Описание",
+                Ingredients = "",
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Введите ингредиенты блюда"));
+            Assert.Contains(results, r => r.ErrorMessage == "Введите ингредиенты блюда");
         }
 
         [Fact]
         public void Dish_WithTooLongIngredients_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
                 Price = 350.50m,
-                DescriptionDish = "Описание блюда",
-                Ingredients = new string('A', 1001), // 1001 символ - превышает лимит в 1000
+                DescriptionDish = "Описание",
+                Ingredients = new string('A', 1001),
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Ингредиенты не могут превышать 1000 символов"));
+            Assert.Contains(results, r => r.ErrorMessage == "Ингредиенты не могут превышать 1000 символов");
         }
 
         [Fact]
         public void Dish_WithZeroCookingTime_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
                 Price = 350.50m,
-                DescriptionDish = "Описание блюда",
+                DescriptionDish = "Описание",
                 Ingredients = "Ингредиенты",
-                CookingTimeMinutes = 0, // Нулевое время приготовления
+                CookingTimeMinutes = 0,
                 GroupId = 1
             };
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Время приготовления должно быть между"));
+            Assert.Contains(results, r => r.ErrorMessage == "Время приготовления должно быть между 1 и 180 минутами");
         }
 
         [Fact]
         public void Dish_WithTooLargeCookingTime_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
                 Price = 350.50m,
-                DescriptionDish = "Описание блюда",
+                DescriptionDish = "Описание",
                 Ingredients = "Ингредиенты",
-                CookingTimeMinutes = 181, // Превышает 180 минут
+                CookingTimeMinutes = 181,
                 GroupId = 1
             };
 
             var context = new ValidationContext(dish);
             var results = new List<ValidationResult>();
-
-            // Act
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
-            // Assert
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage.Contains("Время приготовления должно быть между"));
+            Assert.Contains(results, r => r.ErrorMessage == "Время приготовления должно быть между 1 и 180 минутами");
         }
 
         [Fact]
         public void Dish_WithoutGroupId_ShouldBeInvalid()
         {
-            // Arrange
             var dish = new Dish
             {
                 DishName = "Борщ",
                 Price = 350.50m,
-                DescriptionDish = "Описание блюда",
+                DescriptionDish = "Описание",
                 Ingredients = "Ингредиенты",
                 CookingTimeMinutes = 30,
-                GroupId = 0 // Значение по умолчанию
+                GroupId = 0  
             };
 
-            // Act
-            var validationResults = new List<ValidationResult>();
-            var validationContext = new ValidationContext(dish);
-            var isValid = Validator.TryValidateObject(dish, validationContext, validationResults, true);
+            var context = new ValidationContext(dish);
+            var results = new List<ValidationResult>();
 
-            // Дополнительная проверка GroupId
             if (dish.GroupId <= 0)
             {
-                validationResults.Add(new ValidationResult("Необходимо выбрать группу блюда", new[] { "GroupId" }));
-                isValid = false;
+                results.Add(new ValidationResult("Необходимо выбрать группу блюда", new[] { "GroupId" }));
             }
 
-            // Assert
-            Assert.False(isValid);
-            Assert.Contains(validationResults, r => r.MemberNames.Contains("GroupId"));
+            Validator.TryValidateObject(dish, context, results, true);
+            Assert.Contains(results, r => r.ErrorMessage == "Необходимо выбрать группу блюда");
         }
     }
 }
