@@ -3,25 +3,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
 
-namespace restaurantBudweis.Pages.Clients
+namespace restaurantBudweis.Pages.Dishs
 {
-    public class EditDishModel  : PageModel
+    public class EditDishModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
-        public EditModel(ApplicationDbContext context)
+        public EditDishModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Client Client { get; set; }
+        public Dish Dish { get; set; }
 
         public IActionResult OnGet(int id)
         {
-            Client = _context.Clients.Find(id);
+            Dish = _context.Dishs.Find(id);
 
-            if (Client == null)
+            if (Dish == null)
                 return NotFound();
 
             return Page();
@@ -32,7 +32,7 @@ namespace restaurantBudweis.Pages.Clients
             if (!ModelState.IsValid)
                 return Page();
 
-            _context.Clients.Update(Client);
+            _context.Dishs.Update(Dish);
             _context.SaveChanges();
 
             return RedirectToPage("Index");
