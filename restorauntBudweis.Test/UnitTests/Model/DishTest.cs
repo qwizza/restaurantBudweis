@@ -10,10 +10,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 350.50m,
-                DescriptionDish = "Традиционный русский борщ с пампушками",
-                Ingredients = "Свекла, капуста, картофель, морковь, лук, чеснок, томатная паста",
+                DescriptionDish = "РўСЂР°РґРёС†РёРѕРЅРЅС‹Р№ СЂСѓСЃСЃРєРёР№ Р±РѕСЂС‰ СЃ РїР°РјРїСѓС€РєР°РјРё",
+                Ingredients = "РЎРІРµРєР»Р°, РєР°РїСѓСЃС‚Р°, РєР°СЂС‚РѕС„РµР»СЊ, РјРѕСЂРєРѕРІСЊ, Р»СѓРє, С‡РµСЃРЅРѕРє, С‚РѕРјР°С‚РЅР°СЏ РїР°СЃС‚Р°",
                 CookingTimeMinutes = 60,
                 GroupId = 1
             };
@@ -33,8 +33,8 @@ namespace restorauntBudweis.Test
             {
                 DishName = "",
                 Price = 350.50m,
-                DescriptionDish = "Описание",
-                Ingredients = "Ингредиенты",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
@@ -44,7 +44,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Введите название блюда");
+            Assert.Contains(results, r => r.ErrorMessage == "Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ Р±Р»СЋРґР°");
         }
 
         [Fact]
@@ -54,8 +54,8 @@ namespace restorauntBudweis.Test
             {
                 DishName = new string('A', 51),
                 Price = 350.50m,
-                DescriptionDish = "Описание",
-                Ingredients = "Ингредиенты",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
@@ -65,7 +65,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Название блюда не может превышать 50 символов");
+            Assert.Contains(results, r => r.ErrorMessage == "РќР°Р·РІР°РЅРёРµ Р±Р»СЋРґР° РЅРµ РјРѕР¶РµС‚ РїСЂРµРІС‹С€Р°С‚СЊ 50 СЃРёРјРІРѕР»РѕРІ");
         }
 
         [Fact]
@@ -73,10 +73,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = -10m,
-                DescriptionDish = "Описание",
-                Ingredients = "Ингредиенты",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
@@ -86,7 +86,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Цена должна быть между 0.01 и 99999.99");
+            Assert.Contains(results, r => r.ErrorMessage == "Р¦РµРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РјРµР¶РґСѓ 0.01 Рё 99999.99");
         }
 
         [Fact]
@@ -94,10 +94,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 0m,
-                DescriptionDish = "Описание",
-                Ingredients = "Ингредиенты",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
@@ -107,7 +107,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Цена должна быть между 0.01 и 99999.99");
+            Assert.Contains(results, r => r.ErrorMessage == "Р¦РµРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РјРµР¶РґСѓ 0.01 Рё 99999.99");
         }
 
         [Fact]
@@ -115,10 +115,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 100000m,
-                DescriptionDish = "Описание",
-                Ingredients = "Ингредиенты",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
@@ -128,7 +128,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Цена должна быть между 0.01 и 99999.99");
+            Assert.Contains(results, r => r.ErrorMessage == "Р¦РµРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РјРµР¶РґСѓ 0.01 Рё 99999.99");
         }
 
         [Fact]
@@ -136,10 +136,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 350.50m,
                 DescriptionDish = "",
-                Ingredients = "Ингредиенты",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
@@ -149,7 +149,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Введите описание блюда");
+            Assert.Contains(results, r => r.ErrorMessage == "Р’РІРµРґРёС‚Рµ РѕРїРёСЃР°РЅРёРµ Р±Р»СЋРґР°");
         }
 
         [Fact]
@@ -157,10 +157,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 350.50m,
                 DescriptionDish = new string('A', 501),
-                Ingredients = "Ингредиенты",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
@@ -170,7 +170,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Описание не может превышать 500 символов");
+            Assert.Contains(results, r => r.ErrorMessage == "РћРїРёСЃР°РЅРёРµ РЅРµ РјРѕР¶РµС‚ РїСЂРµРІС‹С€Р°С‚СЊ 500 СЃРёРјРІРѕР»РѕРІ");
         }
 
         [Fact]
@@ -178,9 +178,9 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 350.50m,
-                DescriptionDish = "Описание",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
                 Ingredients = "",
                 CookingTimeMinutes = 30,
                 GroupId = 1
@@ -191,7 +191,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Введите ингредиенты блюда");
+            Assert.Contains(results, r => r.ErrorMessage == "Р’РІРµРґРёС‚Рµ РёРЅРіСЂРµРґРёРµРЅС‚С‹ Р±Р»СЋРґР°");
         }
 
         [Fact]
@@ -199,10 +199,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 350.50m,
-                DescriptionDish = "Описание",
-                Ingredients = new string('A', 1001),
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = new string('Рђ', 1001),
                 CookingTimeMinutes = 30,
                 GroupId = 1
             };
@@ -212,7 +212,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Ингредиенты не могут превышать 1000 символов");
+            Assert.Contains(results, r => r.ErrorMessage == "РРЅРіСЂРµРґРёРµРЅС‚С‹ РЅРµ РјРѕРіСѓС‚ РїСЂРµРІС‹С€Р°С‚СЊ 1000 СЃРёРјРІРѕР»РѕРІ");
         }
 
         [Fact]
@@ -220,10 +220,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 350.50m,
-                DescriptionDish = "Описание",
-                Ingredients = "Ингредиенты",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 0,
                 GroupId = 1
             };
@@ -233,7 +233,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Время приготовления должно быть между 1 и 180 минутами");
+            Assert.Contains(results, r => r.ErrorMessage == "Р’СЂРµРјСЏ РїСЂРёРіРѕС‚РѕРІР»РµРЅРёСЏ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РјРµР¶РґСѓ 1 Рё 180 РјРёРЅСѓС‚Р°РјРё");
         }
 
         [Fact]
@@ -241,10 +241,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 350.50m,
-                DescriptionDish = "Описание",
-                Ingredients = "Ингредиенты",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 181,
                 GroupId = 1
             };
@@ -254,7 +254,7 @@ namespace restorauntBudweis.Test
             var isValid = Validator.TryValidateObject(dish, context, results, true);
 
             Assert.False(isValid);
-            Assert.Contains(results, r => r.ErrorMessage == "Время приготовления должно быть между 1 и 180 минутами");
+            Assert.Contains(results, r => r.ErrorMessage == "Р’СЂРµРјСЏ РїСЂРёРіРѕС‚РѕРІР»РµРЅРёСЏ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РјРµР¶РґСѓ 1 Рё 180 РјРёРЅСѓС‚Р°РјРё");
         }
 
         [Fact]
@@ -262,10 +262,10 @@ namespace restorauntBudweis.Test
         {
             var dish = new Dish
             {
-                DishName = "Борщ",
+                DishName = "Р‘РѕСЂС‰",
                 Price = 350.50m,
-                DescriptionDish = "Описание",
-                Ingredients = "Ингредиенты",
+                DescriptionDish = "РћРїРёСЃР°РЅРёРµ",
+                Ingredients = "РРЅРіСЂРµРґРёРµРЅС‚С‹",
                 CookingTimeMinutes = 30,
                 GroupId = 0  
             };
@@ -275,11 +275,11 @@ namespace restorauntBudweis.Test
 
             if (dish.GroupId <= 0)
             {
-                results.Add(new ValidationResult("Необходимо выбрать группу блюда", new[] { "GroupId" }));
+                results.Add(new ValidationResult("РќРµРѕР±С…РѕРґРёРјРѕ РІС‹Р±СЂР°С‚СЊ РіСЂСѓРїРїСѓ Р±Р»СЋРґР°", new[] { "GroupId" }));
             }
 
             Validator.TryValidateObject(dish, context, results, true);
-            Assert.Contains(results, r => r.ErrorMessage == "Необходимо выбрать группу блюда");
+            Assert.Contains(results, r => r.ErrorMessage == "РќРµРѕР±С…РѕРґРёРјРѕ РІС‹Р±СЂР°С‚СЊ РіСЂСѓРїРїСѓ Р±Р»СЋРґР°");
         }
     }
 }
