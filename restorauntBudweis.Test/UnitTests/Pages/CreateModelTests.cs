@@ -44,10 +44,10 @@ namespace restorauntBudweis.Test
             {
                 Dish = new Dish
                 {
-                    DishName = "Борщ",
+                    DishName = "Р‘РѕСЂС‰",
                     Price = 350.50m,
-                    DescriptionDish = "Традиционный украинский борщ",
-                    Ingredients = "Свекла, капуста, картофель",
+                    DescriptionDish = "РўСЂР°РґРёС†РёРѕРЅРЅС‹Р№ СѓРєСЂР°РёРЅСЃРєРёР№ Р±РѕСЂС‰",
+                    Ingredients = "РЎРІРµРєР»Р°, РєР°РїСѓСЃС‚Р°, РєР°СЂС‚РѕС„РµР»СЊ",
                     CookingTimeMinutes = 60,
                     GroupId = 1
                 }
