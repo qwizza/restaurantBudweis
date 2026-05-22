@@ -12,19 +12,16 @@ namespace restaurantBudweis.Pages.Account.User
     {
         private readonly ApplicationDbContext _context;
 
-        public EditModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public EditModel(ApplicationDbContext context) => _context = context;
 
         [BindProperty]
-        public AuthUser User { get; set; }
+        public AuthUser AuthUser { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            User = await _context.AuthUsers.FindAsync(id);
+            AuthUser = await _context.AuthUsers.FirstOrDefaultAsync(u => u.Id == id);
 
-            if (User == null)
+            if (AuthUser == null)
                 return NotFound();
 
             return Page();
@@ -32,13 +29,24 @@ namespace restaurantBudweis.Pages.Account.User
 
         public async Task<IActionResult> OnPostAsync()
         {
+            ModelState.Remove("AuthUser.Password");
+
             if (!ModelState.IsValid)
                 return Page();
 
-            _context.Attach(User).State = EntityState.Modified;
+            var userFromDb = await _context.AuthUsers.FindAsync(AuthUser.Id);
+            if (userFromDb == null)
+                return NotFound();
+
+            userFromDb.Email = AuthUser.Email;
+            userFromDb.Role = AuthUser.Role;
+
+            if (!string.IsNullOrWhiteSpace(AuthUser.Password))
+            {
+                userFromDb.Password = AuthUser.Password;
+            }
 
             await _context.SaveChangesAsync();
-
             return RedirectToPage("Index");
         }
     }
