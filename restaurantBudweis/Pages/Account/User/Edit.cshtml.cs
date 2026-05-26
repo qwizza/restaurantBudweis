@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR; 
 using restaurantBudweis.Data;
 using restaurantBudweis.Model.AuthApp;
+using System.Threading.Tasks;
 
 namespace restaurantBudweis.Pages.Account.User
 {
@@ -11,8 +13,13 @@ namespace restaurantBudweis.Pages.Account.User
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<PageUpdateHub> _hubContext;
 
-        public EditModel(ApplicationDbContext context) => _context = context;
+        public EditModel(ApplicationDbContext context, IHubContext<PageUpdateHub> hubContext)
+        {
+            _context = context;
+            _hubContext = hubContext;
+        }
 
         [BindProperty]
         public AuthUser AuthUser { get; set; } = new();
@@ -46,7 +53,9 @@ namespace restaurantBudweis.Pages.Account.User
                 userFromDb.Password = AuthUser.Password;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); 
+            await _hubContext.Clients.All.SendAsync("RefreshUsers");
+
             return RedirectToPage("Index");
         }
     }

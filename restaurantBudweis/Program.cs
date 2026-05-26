@@ -53,6 +53,7 @@ app.UseStaticFiles();
 app.MapRazorPages();
 
 app.MapHub<ChatHub>("/chatHub");
+app.MapHub<PageUpdateHub>("/pageUpdateHub");
 
 app.Run();
 
