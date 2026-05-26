@@ -11,7 +11,7 @@ namespace restaurantBudweis.Pages.Dishs
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly IHubContext<PageUpdateHub> _hubContext;
+        private readonly IHubContext<PageUpdateHub?> _hubContext;
 
         public CreateModel(ApplicationDbContext context, IHubContext<PageUpdateHub> hubContext)
         {
@@ -30,19 +30,18 @@ namespace restaurantBudweis.Pages.Dishs
             GroupDishList = new SelectList(groups, "Id", "Name");
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-            {
-                var groups = _context.DishsGroupDishs.ToList();
-                GroupDishList = new SelectList(groups, "Id", "Name");
                 return Page();
-            }
 
             _context.Dishs.Add(Dish);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
-            _hubContext.Clients.All.SendAsync("RefreshDishes").Wait();
+            if (_hubContext != null)
+            {
+                await _hubContext.Clients.All.SendAsync("RefreshDishes");
+            }
 
             return RedirectToPage("Index");
         }
