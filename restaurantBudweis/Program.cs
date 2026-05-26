@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using restaurantBudweis;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model.AuthApp;
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -49,6 +51,8 @@ app.UseAuthorization(); // внимание эта после UseAuthentication
 
 app.UseStaticFiles();
 app.MapRazorPages();
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
 

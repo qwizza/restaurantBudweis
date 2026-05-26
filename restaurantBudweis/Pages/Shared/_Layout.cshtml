@@ -23,21 +23,29 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Dishs/Index">Блюда</a>
+                            <a class="nav-link text-dark" asp-page="/Dishs/Index">🍔 Блюда</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Clients/Index">Клиенты</a>
+                            <a class="nav-link text-dark" asp-page="/Clients/Index">👥 Клиенты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/GroupDish/Index">Группы блюд</a>
+                            <a class="nav-link text-dark" asp-page="/GroupDish/Index">📂 Группы блюд</a>
                         </li>
+
+                        @* Показываем ссылку на чат только авторизованным пользователям *@
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Chat/SupportChat">💬 Чат поддержки</a>
+                            </li>
+                        }
 
                         @*можно скрыть кнопку "Пользователи", нужно поставить @ перед if и убрать комит*@
                         @*if (User.IsInRole("Admin"))*@
                         @*{*@
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Account/User/Index">Пользователи</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Account/User/Index">🛠️ Пользователи</a>
+                        </li>
                         @* }*@
                     </ul>
                   
