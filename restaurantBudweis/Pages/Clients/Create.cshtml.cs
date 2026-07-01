@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace restaurantBudweis.Pages.Clients
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<PageUpdateHub> _hubContext;
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(ApplicationDbContext context, IHubContext<PageUpdateHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -35,7 +38,6 @@ namespace restaurantBudweis.Pages.Clients
                     Text = d.DishName
                 })
                 .ToList();
-
         }
 
         public IActionResult OnPost()
@@ -43,7 +45,6 @@ namespace restaurantBudweis.Pages.Clients
             var count = SelectedDishIds?.Count ?? 0;
             TempData["Debug"] = $"Выбрано блюд: {count}";
             if (SelectedDishIds == null || !SelectedDishIds.Any())
-            
             {
                 AvailableDishes = _context.Dishs
                     .Select(d => new SelectListItem
@@ -63,7 +64,8 @@ namespace restaurantBudweis.Pages.Clients
             }
 
             _context.Clients.Add(Client);
-            _context.SaveChanges();
+            _context.SaveChanges(); 
+            _hubContext.Clients.All.SendAsync("RefreshClients").Wait();
 
             return RedirectToPage("Index");
         }

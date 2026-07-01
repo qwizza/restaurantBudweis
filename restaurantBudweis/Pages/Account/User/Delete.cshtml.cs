@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR; 
 using restaurantBudweis.Data;
 using restaurantBudweis.Model.AuthApp;
+using System.Threading.Tasks;
 
 namespace restaurantBudweis.Pages.Account.User
 {
@@ -10,10 +12,12 @@ namespace restaurantBudweis.Pages.Account.User
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<PageUpdateHub> _hubContext;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context, IHubContext<PageUpdateHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -36,7 +40,8 @@ namespace restaurantBudweis.Pages.Account.User
             if (user != null)
             {
                 _context.AuthUsers.Remove(user);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); 
+                await _hubContext.Clients.All.SendAsync("RefreshUsers");
             }
 
             return RedirectToPage("Index");

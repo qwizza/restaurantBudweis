@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace restaurantBudweis.Pages.Clients
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<PageUpdateHub> _hubContext;
 
-        public EditModel(ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context, IHubContext<PageUpdateHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -86,6 +89,7 @@ namespace restaurantBudweis.Pages.Clients
                 }
 
                 _context.SaveChanges();
+                _hubContext.Clients.All.SendAsync("RefreshClients").Wait();
             }
 
             return RedirectToPage("Index");
