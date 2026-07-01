@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace restaurantBudweis.Pages.Dishs
 {
-    public class EditDishModel : PageModel  // ← Переименовано
+    public class EditDishModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
