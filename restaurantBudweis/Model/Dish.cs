@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace restaurantBudweis.Model
@@ -12,6 +13,7 @@ namespace restaurantBudweis.Model
 
         [Required(ErrorMessage = "Введите цену блюда")]
         [Range(0.01, 99999.99, ErrorMessage = "Цена должна быть между 0.01 и 99999.99")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "Введите описание блюда")]

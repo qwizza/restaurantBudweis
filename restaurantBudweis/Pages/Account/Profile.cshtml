@@ -1,0 +1,33 @@
+﻿@page
+@model restaurantBudweis.Pages.Account.ProfileModel
+@{
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow rounded-4">
+            <div class="card-header bg-dark text-white text-center rounded-top-4">
+                <h5 class="mb-0">Профиль пользователя</h5>
+            </div>
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <img src="@Model.CurrentAvatarUrl" alt="Аватар" class="rounded-circle border shadow-sm" style="width:130px; height:130px; object-fit:cover;" />
+                </div>
+
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-4 text-start">
+                        <label class="form-label fw-bold">Сменить аватар профиля</label>
+                        <input type="file" name="Upload" class="form-control" accept=".png,.jpg,.jpeg" />
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="/Index" class="btn btn-outline-secondary rounded-pill px-4">На главную</a>
+                        <button type="submit" class="btn btn-dark rounded-pill px-4">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
