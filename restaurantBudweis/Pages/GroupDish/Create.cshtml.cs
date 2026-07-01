@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
-using System.Linq;
 
-namespace restaurantBudweis.Pages.Dishs
+namespace restaurantBudweis.Pages.GroupDishs
 {
     public class CreateModel : PageModel
     {
@@ -17,26 +15,16 @@ namespace restaurantBudweis.Pages.Dishs
         }
 
         [BindProperty]
-        public Dish Dish { get; set; } = new();
+        public Model.Group GroupDish { get; set; } = new();
 
-        public SelectList GroupDishList { get; set; }
-
-        public void OnGet()
-        {
-            var groups = _context.DishsGroupDishs.ToList();
-            GroupDishList = new SelectList(groups, "Id", "Name");
-        }
+        public void OnGet() { }
 
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
-            {
-                var groups = _context.DishsGroupDishs.ToList();
-                GroupDishList = new SelectList(groups, "Id", "Name");
                 return Page();
-            }
 
-            _context.Dishs.Add(Dish);
+            _context.DishsGroupDishs.Add(GroupDish);
             _context.SaveChanges();
 
             return RedirectToPage("Index");

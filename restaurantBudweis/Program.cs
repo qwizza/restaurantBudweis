@@ -21,8 +21,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
-  
+app.UseStaticFiles();
+app.MapRazorPages();
+
 app.Run();
+
+System.Diagnostics.Process.Start("http://localhost:5000");

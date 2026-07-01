@@ -5,7 +5,7 @@
 namespace restaurantBudweis.Migrations
 {
     /// <inheritdoc />
-    public partial class FixclientModel : Migration
+    public partial class newMigrt : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

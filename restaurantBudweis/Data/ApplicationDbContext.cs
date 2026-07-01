@@ -8,6 +8,6 @@ namespace restaurantBudweis.Data
     {
         public DbSet<Dish> Dishs { get; set; }
         public DbSet<Client> Clients { get; set; }
-        public DbSet<GroupDish> DishsGroupDishs { get; set; }
+        public DbSet<Group> DishsGroupDishs { get; set; }
     }
 }

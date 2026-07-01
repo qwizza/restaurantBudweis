@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
-using static System.Reflection.Metadata.BlobBuilder;
 
-namespace restaurantBudweis.Pages.Dishs
+namespace restaurantBudweis.Pages.GroupDishs
 {
     public class IndexModel : PageModel
     {
@@ -15,14 +14,11 @@ namespace restaurantBudweis.Pages.Dishs
         {
             _context = context;
         }
-        public List<Dish> Dishs { get; set; }
+        public List<Group> GroupDishs { get; set; } = new();  
 
-        public async Task OnGet()
+        public async Task OnGetAsync()
         {
-            Dishs = await _context.Dishs
-                .Include(d => d.Group) !
-                .ToListAsync();
-
+            GroupDishs = await _context.DishsGroupDishs.ToListAsync();  
         }
     }
 }

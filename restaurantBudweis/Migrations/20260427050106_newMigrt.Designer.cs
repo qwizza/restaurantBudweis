@@ -12,8 +12,8 @@ using restaurantBudweis.Data;
 namespace restaurantBudweis.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260326053741_FixDishModel2")]
-    partial class FixDishModel2
+    [Migration("20260427050106_newMigrt")]
+    partial class newMigrt
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
