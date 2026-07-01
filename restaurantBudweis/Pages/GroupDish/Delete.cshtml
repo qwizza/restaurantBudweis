@@ -1,0 +1,35 @@
+﻿@page
+@model restaurantBudweis.Pages.GroupDishs.DeleteModel
+@{
+    ViewData["Title"] = "Удалить группу блюд";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-danger shadow-sm rounded-4">
+            <div class="card-header bg-danger text-white rounded-top-4">
+                <h5 class="mb-0 text-center">Удалить группу блюд</h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-3 text-center">
+                    Вы действительно хотите удалить эту группу блюд?
+                </p>
+                <div class="alert alert-light border rounded-3">
+                    <strong>@Model.GroupDish.Name</strong>
+                    @if (!string.IsNullOrEmpty(Model.GroupDish.Dishs))
+                    {
+                        <br />
+                        <small class="text-muted">@Model.GroupDish.Dishs</small>
+                    }
+                </div>
+                <form method="post">
+                    <input type="hidden" name="id" value="@Model.GroupDish.Id" />
+                    <div class="d-flex justify-content-between gap-2 mt-4">
+                        <a asp-page="Index" class="btn btn-outline-secondary rounded-pill px-4">Отмена</a>
+                        <button type="submit" class="btn btn-danger rounded-pill px-4">Удалить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

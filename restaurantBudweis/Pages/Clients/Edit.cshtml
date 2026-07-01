@@ -1,61 +1,61 @@
 ﻿@page "{id:int}"
 @model restaurantBudweis.Pages.Clients.EditModel
+@{
+    ViewData["Title"] = "Редактировать клиента";
+}
+
 <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-
-        <div class="card shadow-sm mt-4">
-            <div class="card-header bg-warning">
-                <h5 class="mb-0">Редактирование клиента</h5>
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-warning rounded-top-4">
+                <h5 class="mb-0 text-center">Редактирование клиента</h5>
             </div>
-
             <div class="card-body">
-
                 <form method="post">
                     <input type="hidden" asp-for="Client.Id" />
 
                     <div class="mb-3">
-                        <label asp-for="Client.FullName" class="form-label"></label>
-                        <input asp-for="Client.FullName" class="form-control" />
+                        <label asp-for="Client.FullName" class="form-label">ФИО</label>
+                        <input asp-for="Client.FullName" class="form-control rounded-3" />
                         <span asp-validation-for="Client.FullName" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Client.PhoneNumber" class="form-label"></label>
-                        <input asp-for="Client.PhoneNumber" class="form-control" />
+                        <label asp-for="Client.PhoneNumber" class="form-label">Телефон</label>
+                        <input asp-for="Client.PhoneNumber" class="form-control rounded-3" />
                         <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Client.TableNumber" class="form-label"></label>
-                        <input asp-for="Client.TableNumber" class="form-control" />
+                        <label asp-for="Client.TableNumber" class="form-label">Номер столика</label>
+                        <input asp-for="Client.TableNumber" class="form-control rounded-3" />
                         <span asp-validation-for="Client.TableNumber" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Client.VisitDate" class="form-label"></label>
-                        <input asp-for="Client.VisitDate" type="date" class="form-control" />
+                        <label asp-for="Client.VisitDate" class="form-label">Дата посещения</label>
+                        <input asp-for="Client.VisitDate" type="date" class="form-control rounded-3" />
                         <span asp-validation-for="Client.VisitDate" class="text-danger"></span>
                     </div>
 
-                    <div class="d-flex justify-content-between">
-                        <a asp-page="Index" class="btn btn-outline-secondary">
-                            Назад
-                        </a>
-
-                        <button type="submit" class="btn btn-success">
-                            Сохранить
-                        </button>
+                    <div class="mb-3">
+                        <label class="form-label">Заказанные блюда</label>
+                        <select name="SelectedDishIds" class="form-control rounded-3" multiple size="5" asp-items="Model.AvailableDishes">
+                            <option value="">-- Выберите блюда (можно несколько) --</option>
+                        </select>
+                        <small class="form-text text-muted">Зажмите Ctrl для выбора нескольких блюд</small>
                     </div>
 
+                    <div class="d-flex justify-content-between gap-2 mt-4">
+                        <a asp-page="Index" class="btn btn-outline-secondary rounded-pill px-4">Назад</a>
+                        <button type="submit" class="btn btn-success rounded-pill px-4">Сохранить</button>
+                    </div>
                 </form>
-
             </div>
         </div>
-
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
 }

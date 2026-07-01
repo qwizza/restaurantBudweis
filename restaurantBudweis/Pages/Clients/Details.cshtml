@@ -1,61 +1,56 @@
 ﻿@page "{id:int}"
 @model restaurantBudweis.Pages.Clients.Index1Model
 @{
+    ViewData["Title"] = "Информация о клиенте";
 }
 
 <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
-
-        <div class="card shadow-sm mt-4">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Информация о клиенте</h5>
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-primary text-white rounded-top-4">
+                <h5 class="mb-0 text-center">Информация о клиенте</h5>
             </div>
-
             <div class="card-body">
-
                 <dl class="row mb-0">
                     <dt class="col-sm-4">ФИО</dt>
                     <dd class="col-sm-8">@Model.Client.FullName</dd>
 
                     <dt class="col-sm-4">Телефон</dt>
                     <dd class="col-sm-8">
-                        @(string.IsNullOrEmpty(Model.Client.PhoneNumber)
-                                                ? "—"
-                                                : Model.Client.PhoneNumber)
+                        @(string.IsNullOrEmpty(Model.Client.PhoneNumber) ? "—" : Model.Client.PhoneNumber)
                     </dd>
 
                     <dt class="col-sm-4">Номер столика</dt>
                     <dd class="col-sm-8">@Model.Client.TableNumber</dd>
 
                     <dt class="col-sm-4">Дата посещения</dt>
+                    <dd class="col-sm-8">@Model.Client.VisitDate.ToShortDateString()</dd>
+
+                    <dt class="col-sm-4">Заказанные блюда</dt>
                     <dd class="col-sm-8">
-                        @Model.Client.VisitDate.ToShortDateString()
+                        @if (Model.Client.Dishs != null && Model.Client.Dishs.Any())
+                        {
+                            <ul class="mb-0">
+                                @foreach (var dish in Model.Client.Dishs)
+                                {
+                                    <li>@dish.DishName</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">—</span>
+                        }
                     </dd>
-
                 </dl>
-
             </div>
-
-            <div class="card-footer d-flex justify-content-between">
-                <a asp-page="Index" class="btn btn-outline-secondary">
-                    Назад
-                </a>
-
-                <div>
-                    <a asp-page="Edit"
-                       asp-route-id="@Model.Client.Id"
-                       class="btn btn-warning me-2">
-                        Редактировать
-                    </a>
-
-                    <a asp-page="Delete"
-                       asp-route-id="@Model.Client.Id"
-                       class="btn btn-danger">
-                        Удалить
-                    </a>
+            <div class="card-footer d-flex justify-content-between rounded-bottom-4 bg-body-secondary">
+                <a asp-page="Index" class="btn btn-outline-secondary rounded-pill px-4">Назад</a>
+                <div class="d-flex gap-2">
+                    <a asp-page="Edit" asp-route-id="@Model.Client.Id" class="btn btn-warning rounded-pill px-4">Редактировать</a>
+                    <a asp-page="Delete" asp-route-id="@Model.Client.Id" class="btn btn-danger rounded-pill px-4">Удалить</a>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

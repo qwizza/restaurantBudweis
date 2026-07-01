@@ -12,8 +12,8 @@ using restaurantBudweis.Data;
 namespace restaurantBudweis.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260219061538_DishGroupDish2")]
-    partial class DishGroupDish2
+    [Migration("20260427050106_newMigrt")]
+    partial class newMigrt
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,17 +67,26 @@ namespace restaurantBudweis.Migrations
                     b.Property<int>("CookingTimeMinutes")
                         .HasColumnType("int");
 
-                    b.Property<int>("DishID")
+                    b.Property<string>("DescriptionDish")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DishName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GroupDishId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GroupDishId")
-                        .HasColumnType("int");
+                    b.Property<string>("Ingredients")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -112,7 +121,9 @@ namespace restaurantBudweis.Migrations
 
                     b.HasOne("restaurantBudweis.Model.GroupDish", "GroupDish")
                         .WithMany("Dishs")
-                        .HasForeignKey("GroupDishId");
+                        .HasForeignKey("GroupDishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("GroupDish");
                 });

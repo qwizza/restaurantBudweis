@@ -23,7 +23,7 @@ namespace restaurantBudweis.Pages.Dishs
         {
             Dish = _context.Dishs
                         .Where(c => c.Id == id)
-                        .Include(b => b.GroupDish)
+                        .Include(b => b.Group)
                         .FirstOrDefault();
 
             if (Dish == null)

@@ -1,0 +1,39 @@
+﻿@page
+@model restaurantBudweis.Pages.Account.User.DetailsModel
+@{
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4 text-center">
+                    <div class="mb-4">
+                        <img src="@(Model.User.AvatarUrl ?? "/avatars/default.png")"
+                             alt="Avatar"
+                             class="rounded-circle border shadow-sm"
+                             style="width: 120px; height: 120px; object-fit: cover;" />
+                    </div>
+
+                    <h3 class="h4 mb-2">@Model.User.Email</h3>
+                    <div class="mb-4">
+                        <span class="badge fs-6 @(Model.User.Role == "Admin" ? "bg-danger" : "bg-secondary")">
+                            @Model.User.Role
+                        </span>
+                    </div>
+
+                    <hr class="my-4 opacity-25" />
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <a asp-page="Edit" asp-route-id="@Model.User.Id" class="btn btn-warning rounded-pill px-4 text-white">
+                            Изменить
+                        </a>
+                        <a asp-page="Index" class="btn btn-outline-secondary rounded-pill px-4">
+                            Назад к списку
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

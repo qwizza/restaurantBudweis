@@ -12,8 +12,8 @@ using restaurantBudweis.Data;
 namespace restaurantBudweis.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260326053741_FixDishModel2")]
-    partial class FixDishModel2
+    [Migration("20260522203135_AddAuthAndFixPrice")]
+    partial class AddAuthAndFixPrice
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,35 @@ namespace restaurantBudweis.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("restaurantBudweis.Model.AuthApp.AuthUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AvatarUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuthUsers");
+                });
+
             modelBuilder.Entity("restaurantBudweis.Model.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -34,13 +63,17 @@ namespace restaurantBudweis.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("TableNumber")
                         .HasColumnType("int");
@@ -69,18 +102,21 @@ namespace restaurantBudweis.Migrations
 
                     b.Property<string>("DescriptionDish")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("DishName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("GroupDishId")
+                    b.Property<int>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<string>("Ingredients")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -92,18 +128,21 @@ namespace restaurantBudweis.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("GroupDishId");
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Dishs");
                 });
 
-            modelBuilder.Entity("restaurantBudweis.Model.GroupDish", b =>
+            modelBuilder.Entity("restaurantBudweis.Model.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Dishs")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -119,21 +158,16 @@ namespace restaurantBudweis.Migrations
                         .WithMany("Dishs")
                         .HasForeignKey("ClientId");
 
-                    b.HasOne("restaurantBudweis.Model.GroupDish", "GroupDish")
-                        .WithMany("Dishs")
-                        .HasForeignKey("GroupDishId")
+                    b.HasOne("restaurantBudweis.Model.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("GroupDish");
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("restaurantBudweis.Model.Client", b =>
-                {
-                    b.Navigation("Dishs");
-                });
-
-            modelBuilder.Entity("restaurantBudweis.Model.GroupDish", b =>
                 {
                     b.Navigation("Dishs");
                 });

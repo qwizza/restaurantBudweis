@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
 
@@ -16,10 +17,11 @@ namespace restaurantBudweis.Pages.Clients
 
         public List<Client> Clients { get; set; }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            Clients = _context.Clients.ToList();
+            Clients = await _context.Clients
+                .Include(c => c.Dishs)  
+                .ToListAsync();
         }
     }
 }
-

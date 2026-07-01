@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using restaurantBudweis.Data;
 using restaurantBudweis.Model;
 
@@ -13,7 +14,9 @@ namespace restaurantBudweis.Pages.Clients
 
         public IActionResult OnGet(int id)
         {
-            Client = _context.Clients.FirstOrDefault(s => s.Id == id);
+            Client = _context.Clients
+                .Include(c => c.Dishs)
+                .FirstOrDefault(s => s.Id == id);
 
             if (Client == null)
                 return NotFound();

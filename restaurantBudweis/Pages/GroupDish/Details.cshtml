@@ -1,0 +1,40 @@
+﻿@page
+@model restaurantBudweis.Pages.GroupDishs.DetailsModel
+@{
+    ViewData["Title"] = "Информация о группе блюд";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-primary text-white rounded-top-4">
+                <h5 class="mb-0 text-center">Информация о группе блюд</h5>
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Название</dt>
+                    <dd class="col-sm-8">@Model.GroupDish.Name</dd>
+
+                    <dt class="col-sm-4">Описание</dt>
+                    <dd class="col-sm-8">
+                        @if (!string.IsNullOrEmpty(Model.GroupDish.Dishs))
+                        {
+                            @Model.GroupDish.Dishs
+                        }
+                        else
+                        {
+                            <span class="text-muted fst-italic">Описание не указано</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer d-flex justify-content-between rounded-bottom-4 bg-body-secondary">
+                <a asp-page="Index" class="btn btn-outline-secondary rounded-pill px-4">Назад к списку</a>
+                <div class="d-flex gap-2">
+                    <a asp-page="Edit" asp-route-id="@Model.GroupDish.Id" class="btn btn-warning rounded-pill px-4">Редактировать</a>
+                    <a asp-page="Delete" asp-route-id="@Model.GroupDish.Id" class="btn btn-danger rounded-pill px-4">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

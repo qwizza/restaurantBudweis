@@ -5,65 +5,56 @@
 }
 
 <div class="container mt-4">
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Список блюд</h2>
-        <a asp-page="Create" class="btn btn-success">
-            Добавить новое блюдо
-        </a>
+    <div class="row justify-content-between align-items-center mb-4">
+        <div class="col">
+            <h1 class="h3 mb-0">Список блюд</h1>
+        </div>
+        <div class="col-auto">
+            <a asp-page="Create" class="btn btn-primary rounded-pill px-4">
+                + Добавить блюдо
+            </a>
+        </div>
     </div>
 
-    <div class="row g-4">
-        @foreach (var dush in Model.Dishs)
+    <div class="row">
+        @foreach (var dish in Model.Dishs)
         {
-            <div class="col-sm-6 col-md-4 col-lg-3">
-
-                <div class="card h-100 shadow-sm">
-
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm h-100 rounded-4">
                     <div class="card-body">
-
-                        <h5 class="card-title text-truncate">
-                            @dush.DishName
-                        </h5>
-
-                        <p class="card-text text-muted mb-1">
-                            Группа блюд: @dush.GroupDish.Name
+                        <h5 class="card-title text-primary">@dish.DishName</h5>
+                        <p class="card-text text-muted small">
+                            <strong>Группа:</strong> @(dish.Group?.Name ?? "—")<br />
+                            <strong>Цена:</strong> @dish.Price ₽<br />
+                            <strong>Время:</strong> @dish.CookingTimeMinutes мин.
                         </p>
-
-                        <p class="card-text mb-1">
-                            Цена: <span class="badge bg-secondary">@dush.Price</span>
-                        </p>
-
-                        <p class="card-text mb-2">
-                            Время приготовления: <span class="badge bg-info">@dush.CookingTimeMinutes</span>
-                        </p>
-
-                        <p class="card-text mb-1">
-                            Описание блюда: <span class="badge bg-secondary">@dush.DescriptionDish</span>
-                        </p>
-
-                        <p class="card-text mb-1">
-                            Ингредиенты: <span class="badge bg-secondary">@dush.Ingredients</span>
-                        </p>
-
-                        <div class="d-flex justify-content-between">
-                            <a asp-page="Details" asp-route-id="@dush.Id" class="btn btn-sm btn-info">
-                                Открыть
-                            </a>
-                            <a asp-page="Edit" asp-route-id="@dush.Id" class="btn btn-sm btn-warning">
-                                Изменить
-                            </a>
-                            <a asp-page="Delete" asp-route-id="@dush.Id" class="btn btn-sm btn-danger">
-                                Удалить
-                            </a>
+                        <hr />
+                        <div class="mb-2">
+                            <strong class="small">Описание:</strong><br />
+                            <span class="text-muted small">@(string.IsNullOrEmpty(dish.DescriptionDish) ? "—" : dish.DescriptionDish)</span>
                         </div>
-
+                        <div class="mb-2">
+                            <strong class="small">Ингредиенты:</strong><br />
+                            <span class="text-muted small">@(string.IsNullOrEmpty(dish.Ingredients) ? "—" : dish.Ingredients)</span>
+                        </div>
                     </div>
-
+                    <div class="card-footer d-flex justify-content-between rounded-bottom-4 bg-body-secondary">
+                        <small class="text-muted align-self-center">ID: @dish.Id</small>
+                        <div class="btn-group gap-2">
+                            <a asp-page="Details" asp-route-id="@dish.Id" class="btn btn-sm btn-outline-primary rounded-pill px-3">Открыть</a>
+                            <a asp-page="Edit" asp-route-id="@dish.Id" class="btn btn-sm btn-outline-warning rounded-pill px-3">Изменить</a>
+                            <a asp-page="Delete" asp-route-id="@dish.Id" class="btn btn-sm btn-outline-danger rounded-pill px-3">Удалить</a>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         }
     </div>
 
+    @if (!Model.Dishs.Any())
+    {
+        <div class="alert alert-info text-center rounded-4">
+            Список блюд пуст. Добавьте первое блюдо!
+        </div>
+    }
 </div>
